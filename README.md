@@ -1,8 +1,25 @@
-# Nuxtplate 🍽
+# Octo-bpm 🎵
 
-> Look at the [nuxt documentation](https://nuxt.com/) to learn more.
+A simple, responsive BPM (Beats Per Minute) calculator built with Nuxt and TypeScript. This application allows users to tap a rhythm using either a button or spacebar to calculate the BPM of music or any rhythmic pattern.
 
-This is the Nuxtjs boilerplate. It contains the following conventions/features:
+<details>
+  <summary>Screenshot</summary>
+  
+  ![Screenshot 2025-03-06 at 17-30-00 Next](https://github.com/user-attachments/assets/e25e74c7-ed78-43e3-9e5b-b6603c9d7a78)
+
+</details>
+
+## Features
+
+- Real-time BPM calculation
+- Tap input via button or spacebar
+- Visual feedback with beat strength indicator
+- Persistent BPM display until manual reset
+- Responsive design for mobile and desktop
+- Built with TypeScript for type safety
+- Modular architecture with Vue 3 Composition API
+
+## Tech Stack
 
 - [x] 🪲 [Typescript](https://www.typescriptlang.org/)
 - [x] 💚 [Nuxt](https://nuxt.com//)
@@ -10,34 +27,37 @@ This is the Nuxtjs boilerplate. It contains the following conventions/features:
 - [x] ✨ [Eslint](https://eslint.org/) & [Prettier](https://prettier.io/)
 - [x] 🐕 [Husky](https://github.com/typicode/husky) git hooks
 
-## Setup
+## Getting Started
 
-Make sure to install the dependencies:
+Make sure to install the dependencies with [pnpm](https://pnpm.io/installation#using-corepack)
+
+### 1. Clone the Repo
+
+Start by cloning this repo to your local machine and navigating into the directory.
 
 ```bash
-yarn
+git clone https://github.com/roiLeo/octo-bpm
+cd octo-bpm
 ```
 
-## Development Server
+### 2. Install Dependencies
 
-Start the development server on http://localhost:3000
+Then, install the project dependencies:
 
 ```bash
-yarn dev
+pnpm install
 ```
 
-## Production
-
-Build the application for production:
+### 3. Run the development server
 
 ```bash
-yarn build
+pnpm dev
 ```
 
-Locally preview production build:
+### 4. Build for production
 
 ```bash
-yarn preview
+pnpm build
 ```
 
 ## Deployment
