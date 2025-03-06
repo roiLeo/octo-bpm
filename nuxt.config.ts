@@ -1,5 +1,6 @@
 export default defineNuxtConfig({
   future: { compatibilityVersion: 4 },
+
   app: {
     head: {
       title: 'Next',
@@ -8,10 +9,14 @@ export default defineNuxtConfig({
       bodyAttrs: { class: 'bg-white dark:bg-gray-900' }
     }
   },
+
   modules: ['@nuxtjs/i18n', '@nuxt/ui'],
   ui: { global: true },
+
   colorMode: {
     preference: 'dark',
     classSuffix: ''
-  }
+  },
+
+  compatibilityDate: '2025-03-06'
 })
