@@ -1,63 +1,149 @@
 <template>
-  <UPopover mode="hover">
+  <UPopover :ui="{ content: 'w-72 px-6 py-4 flex flex-col gap-4' }">
     <template #default="{ open }">
-      <UButton color="gray" variant="ghost" square :class="[open && 'bg-gray-50 dark:bg-gray-800']" aria-label="Color picker">
-        <UIcon name="i-heroicons-swatch-20-solid" class="text-primary-500 dark:text-primary-400 h-5 w-5" />
-      </UButton>
+      <UButton
+        icon="i-lucide-swatch-book"
+        color="neutral"
+        :variant="open ? 'soft' : 'ghost'"
+        square
+        aria-label="Color picker"
+        :ui="{ leadingIcon: 'text-(--ui-primary)' }"
+      />
     </template>
 
-    <template #panel>
-      <div class="p-2">
-        <div class="grid grid-cols-5 gap-px">
-          <ColorPickerPill v-for="color in primaryColors" :key="color.value" :color="color" :selected="primary!" @select="primary = color" />
-        </div>
+    <template #content>
+      <fieldset>
+        <legend class="text-[11px] leading-none font-semibold mb-2">
+          Primary
+        </legend>
 
-        <hr class="my-2 border-gray-200 dark:border-gray-800" />
+        <div class="grid grid-cols-3 gap-1 -mx-2">
+          <ColorPickerPill
+            label="Black"
+            :selected="appConfig.theme.blackAsPrimary"
+            @click="setBlackAsPrimary(true)"
+          >
+            <template #leading>
+              <span class="inline-block w-2 h-2 rounded-full bg-black dark:bg-white" />
+            </template>
+          </ColorPickerPill>
 
-        <div class="grid grid-cols-5 gap-px">
-          <ColorPickerPill v-for="color in grayColors" :key="color.value" :color="color" :selected="gray!" @select="gray = color" />
+          <ColorPickerPill
+            v-for="color in primaryColors"
+            :key="color"
+            :label="color"
+            :chip="color"
+            :selected="!appConfig.theme.blackAsPrimary && primary === color"
+            @click="primary = color"
+          />
         </div>
-      </div>
+      </fieldset>
+
+      <fieldset>
+        <legend class="text-[11px] leading-none font-semibold mb-2">
+          Neutral
+        </legend>
+
+        <div class="grid grid-cols-3 gap-1 -mx-2">
+          <ColorPickerPill
+            v-for="color in neutralColors"
+            :key="color"
+            :label="color"
+            :chip="color === 'neutral' ? 'old-neutral' : color"
+            :selected="neutral === color"
+            @click="neutral = color"
+          />
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend class="text-[11px] leading-none font-semibold mb-2">
+          Radius
+        </legend>
+
+        <div class="grid grid-cols-5 gap-1 -mx-2">
+          <ColorPickerPill
+            v-for="r in radiuses"
+            :key="r"
+            :label="String(r)"
+            class="justify-center px-0"
+            :selected="radius === r"
+            @click="radius = r"
+          />
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend class="text-[11px] leading-none font-semibold mb-2">
+          Theme
+        </legend>
+
+        <div class="grid grid-cols-3 gap-1 -mx-2">
+          <ColorPickerPill
+            v-for="m in modes"
+            :key="m.label"
+            v-bind="m"
+            :selected="colorMode.preference === m.label"
+            @click="mode = m.label"
+          />
+        </div>
+      </fieldset>
     </template>
   </UPopover>
 </template>
 
 <script setup lang="ts">
-import colors from '#tailwind-config/theme/colors'
+import colors from 'tailwindcss/colors'
+import { omit } from '#ui/utils'
 
 const appConfig = useAppConfig()
 const colorMode = useColorMode()
 
-const primaryColors = computed(() =>
-  appConfig.ui.colors
-    .filter((color) => color !== 'primary')
-    .map((color) => ({
-      value: color,
-      text: color,
-      hex: colors[color][colorMode.value === 'dark' ? 400 : 500]
-    }))
-)
-const grayColors = computed(() =>
-  ['slate', 'cool', 'zinc', 'neutral', 'stone'].map((color) => ({
-    value: color,
-    text: color,
-    hex: colors[color][colorMode.value === 'dark' ? 400 : 500]
-  }))
-)
+const neutralColors = ['slate', 'gray', 'zinc', 'neutral', 'stone']
+const neutral = computed({
+  get: () => appConfig.ui.colors.neutral,
+  set: (option) => {
+    appConfig.ui.colors.neutral = option
+    window.localStorage.setItem('nuxt-ui-neutral', appConfig.ui.colors.neutral)
+  }
+})
 
+const colorsToOmit = ['inherit', 'current', 'transparent', 'black', 'white', ...neutralColors]
+const primaryColors = Object.keys(omit(colors, colorsToOmit as any))
 const primary = computed({
-  get: () => primaryColors.value.find((option) => option.value === appConfig.ui.primary),
+  get: () => appConfig.ui.colors.primary,
   set: (option) => {
-    appConfig.ui.primary = option!.value
-    window.localStorage.setItem('nuxt-ui-primary', appConfig.ui.primary)
+    appConfig.ui.colors.primary = option
+    window.localStorage.setItem('nuxt-ui-primary', appConfig.ui.colors.primary)
+    setBlackAsPrimary(false)
   }
 })
 
-const gray = computed({
-  get: () => grayColors.value.find((option) => option.value === appConfig.ui.gray),
+const radiuses = [0, 0.125, 0.25, 0.375, 0.5]
+const radius = computed({
+  get: () => appConfig.theme.radius,
   set: (option) => {
-    appConfig.ui.gray = option!.value
-    window.localStorage.setItem('nuxt-ui-gray', appConfig.ui.gray)
+    appConfig.theme.radius = option
+    window.localStorage.setItem('nuxt-ui-radius', String(appConfig.theme.radius))
   }
 })
+
+const modes = [
+  { label: 'light', icon: appConfig.ui.icons.light },
+  { label: 'dark', icon: appConfig.ui.icons.dark },
+  { label: 'system', icon: appConfig.ui.icons.system }
+]
+const mode = computed({
+  get() {
+    return colorMode.value
+  },
+  set(option) {
+    colorMode.preference = option
+  }
+})
+
+function setBlackAsPrimary(value: boolean) {
+  appConfig.theme.blackAsPrimary = value
+  window.localStorage.setItem('nuxt-ui-black-as-primary', String(value))
+}
 </script>

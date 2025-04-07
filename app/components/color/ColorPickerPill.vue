@@ -1,27 +1,37 @@
 <template>
-  <UTooltip :text="color.value" class="capitalize" :open-delay="500">
-    <UButton
-      color="white"
-      square
-      :ui="{
-        color: {
-          white: {
-            solid: 'ring-0 bg-gray-100 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800',
-            ghost: 'hover:bg-gray-50 dark:hover:bg-gray-800/50'
-          }
-        }
-      }"
-      :variant="color.value === selected.value ? 'solid' : 'ghost'"
-      @click.stop.prevent="$emit('select')">
-      <span class="inline-block h-3 w-3 rounded-full" :style="{ backgroundColor: color.hex }" />
-    </UButton>
-  </UTooltip>
+  <UButton
+    size="sm"
+    color="neutral"
+    variant="outline"
+    :icon="icon"
+    :label="label"
+    class="capitalize ring-(--ui-border) rounded-[calc(var(--ui-radius))] text-[11px]"
+    :class="[selected ? 'bg-(--ui-bg-elevated)' : 'hover:bg-(--ui-bg-elevated)/50']"
+  >
+    <template v-if="chip || !!slots.leading" #leading>
+      <slot name="leading">
+        <span
+          class="inline-block size-2 rounded-full"
+          :class="`bg-(--color-light) dark:bg-(--color-dark)`"
+          :style="{
+            '--color-light': `var(--color-${chip}-500)`,
+            '--color-dark': `var(--color-${chip}-400)`
+          }"
+        />
+      </slot>
+    </template>
+  </UButton>
 </template>
 
 <script setup lang="ts">
 defineProps<{
-  color: { value: string; hex: string }
-  selected: { value: string }
+  label: string
+  icon?: string
+  chip?: string
+  selected?: boolean
 }>()
-defineEmits(['select'])
+
+const slots = defineSlots<{
+  leading: () => any
+}>()
 </script>
