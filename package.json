@@ -22,7 +22,7 @@
   "devDependencies": {
     "@nuxt/devtools": "2.4.1",
     "@nuxt/eslint-config": "^1.4.0",
-    "eslint": "^9.26.0",
+    "eslint": "^9.27.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-prettier": "^5.4.0",
     "husky": "^9.1.7",
