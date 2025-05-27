@@ -1,6 +1,12 @@
 <template>
-  <div class="flex flex-col items-center overflow-visible pt-16">
-    <div class="border bg-neutral-100 dark:border-neutral-600 dark:bg-neutral-800 p-8 rounded-lg shadow-md w-full max-w-md mx-auto">
+  <div class="flex flex-col items-center overflow-visible">
+    <div
+      class="text-center py-8 text-neutral-500 dark:text-neutral-400"
+    >
+      <p class="text-lg font-medium">Start tapping to see your rhythm!</p>
+    </div>
+
+    <div class="bg-white dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 p-6 shadow-lg w-full max-w-md mx-auto">
       <div class="text-center mb-6">
         <div class="text-8xl font-bold mb-2">{{ bpm }}</div>
         <div class="text-xl text-neutral-600 dark:text-neutral-200">Beats Per Minute</div>
@@ -32,7 +38,15 @@
       </div>
     </div>
 
-    <div class="mt-8 text-neutral-600 dark:text-neutral-400">
+    <!-- Beat Visualizer -->
+    <BeatVisualizer
+      :beat-count="beatCount"
+      :last-beat-time="lastBeatTime"
+      :star-size="20"
+      @reset="resetBpm"
+    />
+
+    <div class="my-8 text-neutral-600 dark:text-neutral-400">
       <h2 class="text-xl font-bold mb-2">How to use:</h2>
       <ol class="list-decimal pl-6">
         <li>Tap the button or press spacebar in rythm with the music</li>
