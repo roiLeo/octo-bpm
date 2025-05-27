@@ -18,15 +18,15 @@ export function useBpm(): Bpm {
   const startTime: Ref<number | null> = ref(null)
   const beatStrength: Ref<number> = ref(0)
   const resetInterval: Ref<number> = ref(200)
+  const measuringTime: Ref<number> = ref(0)
   let decayInterval: number | null = null
 
   // Computed
   const measuringTimeFormatted = computed((): string => {
-    if (!startTime.value) return '0:00'
+    if (measuringTime.value === 0) return '0:00'
 
-    const elapsed = Math.floor((Date.now() - startTime.value) / 1000)
-    const minutes = Math.floor(elapsed / 60)
-    const seconds = elapsed % 60
+    const minutes = Math.floor(measuringTime.value / 60)
+    const seconds = measuringTime.value % 60
 
     return `${minutes}:${seconds.toString().padStart(2, '0')}`
   })
@@ -39,6 +39,8 @@ export function useBpm(): Bpm {
     if (!startTime.value) {
       startTime.value = now
     }
+
+    measuringTime.value = Math.floor((now - startTime.value) / 1000)
 
     beats.value.push(now)
     beatCount.value++
