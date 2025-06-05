@@ -39,7 +39,7 @@
         </div>
 
         <!-- Group separator -->
-        <div v-if="group !== 4" class="flex flex-col items-center mx-2">
+        <div v-if="group % 4 !== 0" class="flex flex-col items-center mx-2">
           <div class="w-px h-8 bg-neutral-300 dark:bg-neutral-600" />
         </div>
       </div>
