@@ -5,7 +5,7 @@ A simple, responsive BPM (Beats Per Minute) calculator built with Nuxt and TypeS
 <details>
   <summary>Screenshot</summary>
   
-  ![Screenshot 2025-03-06 at 17-30-00 Next](https://github.com/user-attachments/assets/e25e74c7-ed78-43e3-9e5b-b6603c9d7a78)
+![Screenshot 2025-06-05 at 16-57-30 Next](https://github.com/user-attachments/assets/bb501e52-62cc-44a5-9414-8eb6b4a62613)
 
 </details>
 
