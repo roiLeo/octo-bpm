@@ -66,8 +66,10 @@ export function useBpm(): Bpm {
   const calculateBPM = (): void => {
     if (beats.value.length < 2) return
 
-    // Calculate based on the last 8 beats or all beats if less than 8
-    const beatsToConsider = beats.value.slice(-Math.min(8, beats.value.length))
+    // Use all beats for calculation
+    const beatsToConsider = beats.value
+    // or Calculate based on the last 8 beats or all beats if less than 8
+    // const beatsToConsider = beats.value.slice(-Math.min(8, beats.value.length))
 
     // Calculate time differences between consecutive beats
     const intervals: number[] = []
