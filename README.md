@@ -11,10 +11,10 @@ A simple, responsive BPM (Beats Per Minute) calculator built with Nuxt and TypeS
 
 ## Features
 
-- Real-time BPM calculation
+- Real-time BPM from a rolling window of the last 12 taps, ignoring missed or doubled taps
 - Tap input via button or spacebar
-- Visual feedback with beat strength indicator
-- Persistent BPM display until manual reset
+- "Settling" and "Steady" status, with a fresh start after a pause in tapping
+- Reading stays on screen until you reset (button or `R`)
 - Responsive design for mobile and desktop
 - Built with TypeScript for type safety
 - Modular architecture with Vue 3 Composition API
