@@ -22,12 +22,12 @@
   "devDependencies": {
     "@nuxt/devtools": "4.2.0",
     "@nuxt/eslint-config": "^1.17.0",
-    "eslint": "^10.14.0",
+    "eslint": "^10.15.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.7",
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
-    "nuxt": "^4.6.4",
+    "nuxt": "^4.7.0",
     "prettier": "^3.10.1",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "typescript": "^5.9.3"
@@ -35,6 +35,5 @@
   "dependencies": {
     "@nuxt/ui": "4.13.0",
     "@nuxtjs/i18n": "^10.6.0"
-  },
-  "packageManager": "pnpm@9.15.6+sha512.139cab068fdf0b751268179ac5f909b5be72afb4a75c513d1905d151befc8977b593d3cf8671ed83d4d6637c5c94b98ffbce108125de4a5a27a31233601a99de"
+  }
 }
